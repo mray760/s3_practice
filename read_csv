@@ -1,0 +1,28 @@
+import os
+import io
+from io import StringIO
+import boto3
+import pandas as pd
+import random
+import numpy as np
+import s3fs
+import pandas as pd
+
+BUCKET = "mvsgvtest"
+
+URI = 's3://mvsgvtest/bank_credit_transactions/reconciled/8.25.csv'
+fs = s3fs.S3FileSystem()
+
+
+
+def read_csv(s3_uri: str) -> pd.DataFrame:
+    """Read a CSV from S3 into a DataFrame"""
+    with fs.open(s3_uri, "r") as f:
+         return pd.read_csv(f)
+
+
+df = read_csv(URI)
+
+df.to_csv("/Users/mattray/Desktop/GV Accouting/test_5.csv")
+
+print(df)
